@@ -122,7 +122,6 @@ public class QuizActivity extends AppCompatActivity {
                 }
             }
             Toast.makeText(this, correct ? getString(R.string.correct_toast) : getString(R.string.toast) + currentQuestion.correctAnswerToast(), Toast.LENGTH_SHORT).show();
-            progress++;
             if (progress + 1 == questions.size()) {
                 button.setText(getString(R.string.finish));
             } else {
