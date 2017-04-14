@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -64,8 +65,8 @@ public class QuizActivity extends AppCompatActivity {
         progress = savedInstanceState.getInt(PROGRESS);
         buttonTxt = savedInstanceState.getString(BUTTON);
         TextView questionView = (TextView) findViewById(question);
-        questionView.setText(questions.get(progress-1).Text);
-        displayProgress(progress-1);
+        questionView.setText(questions.get(progress).Text);
+        displayProgress(progress);
         Button button = (Button) findViewById(R.id.submit);
         button.setText(buttonTxt);
     }
@@ -122,12 +123,13 @@ public class QuizActivity extends AppCompatActivity {
             }
             Toast.makeText(this, correct ? getString(R.string.correct_toast) : getString(R.string.toast) + currentQuestion.correctAnswerToast(), Toast.LENGTH_SHORT).show();
             progress++;
-            if (progress == questions.size()) {
+            if (progress + 1 == questions.size()) {
                 button.setText(getString(R.string.finish));
             } else {
                 button.setText(getString(R.string.next));
             }
         } else {
+            progress++;
             displayProgress(progress);
             if (progress == questions.size()) {
                 startSummary(view);
