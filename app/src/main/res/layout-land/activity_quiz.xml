@@ -43,23 +43,23 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:lineSpacingExtra="3sp"
-                android:padding="15dp"
-                android:textSize="20sp" />
+                android:lineSpacingExtra="@dimen/line_spacing"
+                android:padding="@dimen/medium_padding"
+                android:textSize="@dimen/text_size" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@android:color/darker_gray" />
+                android:layout_marginBottom="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:background="@color/colorGray" />
 
             <FrameLayout
                 android:id="@+id/fragment_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingRight="10dp" />
+                android:paddingRight="@dimen/small_padding" />
         </LinearLayout>
     </LinearLayout>
 

@@ -6,4 +6,6 @@
     <color name="colorButtonNormal">#afb42b</color>
     <color name="colorSummaryGood">#fdd835</color>
     <color name="colorSummaryNotGood">#e65100</color>
+    <color name="colorWhiteText">#FFFFFF</color>
+    <color name="colorGray">#999999</color>
 </resources>

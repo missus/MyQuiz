@@ -25,20 +25,19 @@
             android:layout_gravity="center"
             android:indeterminate="false"
             android:max="100"
-            android:padding="10dp"
+            android:padding="@dimen/small_padding"
             android:progress="0"
-            android:progressBackgroundTint="@android:color/white" />
+            android:progressBackgroundTint="@color/colorWhiteText" />
 
         <TextView
             android:id="@+id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:lineSpacingExtra="4sp"
+            android:lineSpacingExtra="@dimen/big_line_spacing"
             android:text="@string/summary"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textColor="@color/colorWhiteText"
+            android:textSize="@dimen/big_text_size" />
     </LinearLayout>
 
     <Button
