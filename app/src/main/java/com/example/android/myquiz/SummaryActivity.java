@@ -1,3 +1,8 @@
+/*
+ * Created by Karolin Fornet.
+ * Copyright (c) 2017.  All rights reserved.
+ */
+
 package com.example.android.myquiz;
 
 import android.content.Intent;
@@ -20,7 +25,7 @@ public class SummaryActivity extends AppCompatActivity {
     }
 
     public void displaySummary(int score, int total) {
-        TextView summaryView = (TextView) findViewById(R.id.summary);
+        TextView summaryView = findViewById(R.id.summary);
         boolean top = score > (total * 2 / 3);
         boolean good = score > (total / 3);
         String summary = "";
@@ -34,7 +39,7 @@ public class SummaryActivity extends AppCompatActivity {
         summary += getString(R.string.scored, score, total);
         summary += (good) ? "\n" + getString(R.string.well) : "";
         summaryView.setText(summary);
-        ProgressBar summaryProgress = (ProgressBar) findViewById(R.id.summary_progress);
+        ProgressBar summaryProgress = findViewById(R.id.summary_progress);
         summaryProgress.setProgress(score);
         summaryProgress.setMax(total);
         if (!top && good) {

@@ -1,3 +1,8 @@
+/*
+ * Created by Karolin Fornet.
+ * Copyright (c) 2017.  All rights reserved.
+ */
+
 package com.example.android.myquiz;
 
 import android.content.DialogInterface;
@@ -23,17 +28,17 @@ public class QuizActivity extends AppCompatActivity {
     private int total = 0;
     private int progress = 0;
     private String buttonTxt;
-    public static final String SCORE = "score";
-    public static final String TOTAL = "total";
-    public static final String PROGRESS = "progress";
-    public static final String BUTTON = "buttonTxt";
+    private static final String SCORE = "score";
+    private static final String TOTAL = "total";
+    private static final String PROGRESS = "progress";
+    private static final String BUTTON = "buttonTxt";
     private static List<Question> questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (this.questions == null) {
-            this.questions = getQuestions();
+        if (questions == null) {
+            questions = getQuestions();
         }
         setContentView(R.layout.activity_quiz);
         if (findViewById(R.id.fragment_container) != null) {
@@ -53,7 +58,7 @@ public class QuizActivity extends AppCompatActivity {
         outState.putInt(SCORE, score);
         outState.putInt(TOTAL, total);
         outState.putInt(PROGRESS, progress);
-        Button button = (Button) findViewById(R.id.submit);
+        Button button = findViewById(R.id.submit);
         outState.putString(BUTTON, button.getText().toString());
     }
 
@@ -64,24 +69,24 @@ public class QuizActivity extends AppCompatActivity {
         total = savedInstanceState.getInt(TOTAL);
         progress = savedInstanceState.getInt(PROGRESS);
         buttonTxt = savedInstanceState.getString(BUTTON);
-        TextView questionView = (TextView) findViewById(question);
+        TextView questionView = findViewById(question);
         questionView.setText(questions.get(progress).Text);
         displayProgress(progress);
-        Button button = (Button) findViewById(R.id.submit);
+        Button button = findViewById(R.id.submit);
         button.setText(buttonTxt);
     }
 
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to exit?")
+        builder.setMessage(getString(R.string.exit))
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         QuizActivity.this.finish();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
@@ -91,7 +96,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void onSubmitClick(View view) {
-        Button button = (Button) findViewById(R.id.submit);
+        Button button = findViewById(R.id.submit);
         if (button.getText().toString().equalsIgnoreCase(getString(R.string.submit))) {
             Question currentQuestion = questions.get(progress);
             boolean correct = false;
@@ -122,7 +127,6 @@ public class QuizActivity extends AppCompatActivity {
                 }
             }
             Toast.makeText(this, correct ? getString(R.string.correct_toast) : getString(R.string.toast) + currentQuestion.correctAnswerToast(), Toast.LENGTH_SHORT).show();
-            progress++;
             if (progress + 1 == questions.size()) {
                 button.setText(getString(R.string.finish));
             } else {
@@ -141,12 +145,12 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void displayProgress(int progress) {
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        ProgressBar progressBar = findViewById(R.id.progress_bar);
         progressBar.setProgress(progress + 1);
     }
 
     public void displayQuestion(Question question) {
-        TextView questionView = (TextView) findViewById(R.id.question);
+        TextView questionView = findViewById(R.id.question);
         questionView.setText(question.Text);
 
         if (question.IsEditable) {
@@ -173,40 +177,40 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void startSummary(View view) {
-        this.questions = null;
+        questions = null;
         Intent intent = new Intent(this, SummaryActivity.class);
-        intent.putExtra("score", score);
-        intent.putExtra("total", total);
+        intent.putExtra(SCORE, score);
+        intent.putExtra(TOTAL, total);
         startActivity(intent);
         finish();
     }
 
     private List<Question> getQuestions() {
-        List<Question> questions = new ArrayList<Question>();
+        List<Question> questions = new ArrayList<>();
 
         // Q0
-        List<Answer> answers0 = new ArrayList<Answer>();
+        List<Answer> answers0 = new ArrayList<>();
         answers0.add(new Answer(getString(R.string.answer0_0), true));
         questions.add(new Question(getString(R.string.question0), answers0, true));
         // Q1
-        List<Answer> answers1 = new ArrayList<Answer>();
+        List<Answer> answers1 = new ArrayList<>();
         answers1.add(new Answer(getString(R.string.answer1_0), true));
         questions.add(new Question(getString(R.string.question1), answers1, true));
         // Q2
-        List<Answer> answers2 = new ArrayList<Answer>();
+        List<Answer> answers2 = new ArrayList<>();
         answers2.add(new Answer(getString(R.string.answer2_0), true));
         questions.add(new Question(getString(R.string.question2), answers2, true));
         // Q3
-        List<Answer> answers3 = new ArrayList<Answer>();
+        List<Answer> answers3 = new ArrayList<>();
         answers3.add(new Answer(getString(R.string.answer3_0), true));
         questions.add(new Question(getString(R.string.question3), answers3, true));
         // Q4
-        List<Answer> answers4 = new ArrayList<Answer>();
+        List<Answer> answers4 = new ArrayList<>();
         answers4.add(new Answer(getString(R.string.answer4_0), true));
         questions.add(new Question(getString(R.string.question4), answers4, true));
 
         // Q5
-        List<Answer> answers5 = new ArrayList<Answer>();
+        List<Answer> answers5 = new ArrayList<>();
         answers5.add(new Answer(getString(R.string.answer5_0), true));
         answers5.add(new Answer(getString(R.string.answer5_1), true));
         answers5.add(new Answer(getString(R.string.answer5_2), true));
@@ -215,7 +219,7 @@ public class QuizActivity extends AppCompatActivity {
         answers5.add(new Answer(getString(R.string.answer5_5), false));
         questions.add(new Question(getString(R.string.question5), answers5, false));
         // Q6
-        List<Answer> answers6 = new ArrayList<Answer>();
+        List<Answer> answers6 = new ArrayList<>();
         answers6.add(new Answer(getString(R.string.answer6_0), true));
         answers6.add(new Answer(getString(R.string.answer6_1), true));
         answers6.add(new Answer(getString(R.string.answer6_2), false));
@@ -224,7 +228,7 @@ public class QuizActivity extends AppCompatActivity {
         answers6.add(new Answer(getString(R.string.answer6_5), false));
         questions.add(new Question(getString(R.string.question6), answers6, false));
         // Q7
-        List<Answer> answers7 = new ArrayList<Answer>();
+        List<Answer> answers7 = new ArrayList<>();
         answers7.add(new Answer(getString(R.string.answer7_0), true));
         answers7.add(new Answer(getString(R.string.answer7_1), true));
         answers7.add(new Answer(getString(R.string.answer7_2), true));
@@ -233,7 +237,7 @@ public class QuizActivity extends AppCompatActivity {
         answers7.add(new Answer(getString(R.string.answer7_5), false));
         questions.add(new Question(getString(R.string.question7), answers7, false));
         // Q8
-        List<Answer> answers8 = new ArrayList<Answer>();
+        List<Answer> answers8 = new ArrayList<>();
         answers8.add(new Answer(getString(R.string.answer8_0), true));
         answers8.add(new Answer(getString(R.string.answer8_1), true));
         answers8.add(new Answer(getString(R.string.answer8_2), true));
@@ -242,7 +246,7 @@ public class QuizActivity extends AppCompatActivity {
         answers8.add(new Answer(getString(R.string.answer8_5), false));
         questions.add(new Question(getString(R.string.question8), answers8, false));
         // Q9
-        List<Answer> answers9 = new ArrayList<Answer>();
+        List<Answer> answers9 = new ArrayList<>();
         answers9.add(new Answer(getString(R.string.answer9_0), true));
         answers9.add(new Answer(getString(R.string.answer9_1), true));
         answers9.add(new Answer(getString(R.string.answer9_2), false));
@@ -251,7 +255,7 @@ public class QuizActivity extends AppCompatActivity {
         answers9.add(new Answer(getString(R.string.answer9_5), false));
         questions.add(new Question(getString(R.string.question9), answers9, false));
         // Q10
-        List<Answer> answers10 = new ArrayList<Answer>();
+        List<Answer> answers10 = new ArrayList<>();
         answers10.add(new Answer(getString(R.string.answer10_0), true));
         answers10.add(new Answer(getString(R.string.answer10_1), true));
         answers10.add(new Answer(getString(R.string.answer10_2), true));
@@ -260,7 +264,7 @@ public class QuizActivity extends AppCompatActivity {
         answers10.add(new Answer(getString(R.string.answer10_5), false));
         questions.add(new Question(getString(R.string.question10), answers10, false));
         // Q11
-        List<Answer> answers11 = new ArrayList<Answer>();
+        List<Answer> answers11 = new ArrayList<>();
         answers11.add(new Answer(getString(R.string.answer11_0), true));
         answers11.add(new Answer(getString(R.string.answer11_1), true));
         answers11.add(new Answer(getString(R.string.answer11_2), true));
@@ -269,7 +273,7 @@ public class QuizActivity extends AppCompatActivity {
         answers11.add(new Answer(getString(R.string.answer11_5), false));
         questions.add(new Question(getString(R.string.question11), answers11, false));
         // Q12
-        List<Answer> answers12 = new ArrayList<Answer>();
+        List<Answer> answers12 = new ArrayList<>();
         answers12.add(new Answer(getString(R.string.answer12_0), true));
         answers12.add(new Answer(getString(R.string.answer12_1), true));
         answers12.add(new Answer(getString(R.string.answer12_2), true));
@@ -278,7 +282,7 @@ public class QuizActivity extends AppCompatActivity {
         answers12.add(new Answer(getString(R.string.answer12_5), false));
         questions.add(new Question(getString(R.string.question12), answers12, false));
         // Q13
-        List<Answer> answers13 = new ArrayList<Answer>();
+        List<Answer> answers13 = new ArrayList<>();
         answers13.add(new Answer(getString(R.string.answer13_0), true));
         answers13.add(new Answer(getString(R.string.answer13_1), true));
         answers13.add(new Answer(getString(R.string.answer13_2), true));
@@ -287,7 +291,7 @@ public class QuizActivity extends AppCompatActivity {
         answers13.add(new Answer(getString(R.string.answer13_5), false));
         questions.add(new Question(getString(R.string.question13), answers13, false));
         // Q14
-        List<Answer> answers14 = new ArrayList<Answer>();
+        List<Answer> answers14 = new ArrayList<>();
         answers14.add(new Answer(getString(R.string.answer14_0), true));
         answers14.add(new Answer(getString(R.string.answer14_1), true));
         answers14.add(new Answer(getString(R.string.answer14_2), true));
@@ -296,105 +300,105 @@ public class QuizActivity extends AppCompatActivity {
         answers14.add(new Answer(getString(R.string.answer14_5), false));
         questions.add(new Question(getString(R.string.question14), answers14, false));
         // Q15
-        List<Answer> answers15 = new ArrayList<Answer>();
+        List<Answer> answers15 = new ArrayList<>();
         answers15.add(new Answer(getString(R.string.answer15_0), true));
         answers15.add(new Answer(getString(R.string.answer15_1), false));
         answers15.add(new Answer(getString(R.string.answer15_2), false));
         answers15.add(new Answer(getString(R.string.answer15_3), false));
         questions.add(new Question(getString(R.string.question15), answers15, false));
         // Q16
-        List<Answer> answers16 = new ArrayList<Answer>();
+        List<Answer> answers16 = new ArrayList<>();
         answers16.add(new Answer(getString(R.string.answer16_0), true));
         answers16.add(new Answer(getString(R.string.answer16_1), false));
         answers16.add(new Answer(getString(R.string.answer16_2), false));
         answers16.add(new Answer(getString(R.string.answer16_3), false));
         questions.add(new Question(getString(R.string.question16), answers16, false));
         // Q17
-        List<Answer> answers17 = new ArrayList<Answer>();
+        List<Answer> answers17 = new ArrayList<>();
         answers17.add(new Answer(getString(R.string.answer17_0), true));
         answers17.add(new Answer(getString(R.string.answer17_1), false));
         answers17.add(new Answer(getString(R.string.answer17_2), false));
         answers17.add(new Answer(getString(R.string.answer17_3), false));
         questions.add(new Question(getString(R.string.question17), answers17, false));
         // Q18
-        List<Answer> answers18 = new ArrayList<Answer>();
+        List<Answer> answers18 = new ArrayList<>();
         answers18.add(new Answer(getString(R.string.answer18_0), true));
         answers18.add(new Answer(getString(R.string.answer18_1), false));
         answers18.add(new Answer(getString(R.string.answer18_2), false));
         answers18.add(new Answer(getString(R.string.answer18_3), false));
         questions.add(new Question(getString(R.string.question18), answers18, false));
         // Q19
-        List<Answer> answers19 = new ArrayList<Answer>();
+        List<Answer> answers19 = new ArrayList<>();
         answers19.add(new Answer(getString(R.string.answer19_0), true));
         answers19.add(new Answer(getString(R.string.answer19_1), false));
         answers19.add(new Answer(getString(R.string.answer19_2), false));
         answers19.add(new Answer(getString(R.string.answer19_3), false));
         questions.add(new Question(getString(R.string.question19), answers19, false));
         // Q20
-        List<Answer> answers20 = new ArrayList<Answer>();
+        List<Answer> answers20 = new ArrayList<>();
         answers20.add(new Answer(getString(R.string.answer20_0), true));
         answers20.add(new Answer(getString(R.string.answer20_1), false));
         answers20.add(new Answer(getString(R.string.answer20_2), false));
         answers20.add(new Answer(getString(R.string.answer20_3), false));
         questions.add(new Question(getString(R.string.question20), answers20, false));
         // Q21
-        List<Answer> answers21 = new ArrayList<Answer>();
+        List<Answer> answers21 = new ArrayList<>();
         answers21.add(new Answer(getString(R.string.answer21_0), true));
         answers21.add(new Answer(getString(R.string.answer21_1), false));
         answers21.add(new Answer(getString(R.string.answer21_2), false));
         answers21.add(new Answer(getString(R.string.answer21_3), false));
         questions.add(new Question(getString(R.string.question21), answers21, false));
         // Q22
-        List<Answer> answers22 = new ArrayList<Answer>();
+        List<Answer> answers22 = new ArrayList<>();
         answers22.add(new Answer(getString(R.string.answer22_0), true));
         answers22.add(new Answer(getString(R.string.answer22_1), false));
         answers22.add(new Answer(getString(R.string.answer22_2), false));
         answers22.add(new Answer(getString(R.string.answer22_3), false));
         questions.add(new Question(getString(R.string.question22), answers22, false));
         // Q23
-        List<Answer> answers23 = new ArrayList<Answer>();
+        List<Answer> answers23 = new ArrayList<>();
         answers23.add(new Answer(getString(R.string.answer23_0), true));
         answers23.add(new Answer(getString(R.string.answer23_1), false));
         answers23.add(new Answer(getString(R.string.answer23_2), false));
         answers23.add(new Answer(getString(R.string.answer23_3), false));
         questions.add(new Question(getString(R.string.question23), answers23, false));
         // Q24
-        List<Answer> answers24 = new ArrayList<Answer>();
+        List<Answer> answers24 = new ArrayList<>();
         answers24.add(new Answer(getString(R.string.answer24_0), true));
         answers24.add(new Answer(getString(R.string.answer24_1), false));
         answers24.add(new Answer(getString(R.string.answer24_2), false));
         answers24.add(new Answer(getString(R.string.answer24_3), false));
         questions.add(new Question(getString(R.string.question24), answers24, false));
         // Q25
-        List<Answer> answers25 = new ArrayList<Answer>();
+        List<Answer> answers25 = new ArrayList<>();
         answers25.add(new Answer(getString(R.string.answer25_0), true));
         answers25.add(new Answer(getString(R.string.answer25_1), false));
         answers25.add(new Answer(getString(R.string.answer25_2), false));
         answers25.add(new Answer(getString(R.string.answer25_3), false));
         questions.add(new Question(getString(R.string.question25), answers25, false));
         // Q26
-        List<Answer> answers26 = new ArrayList<Answer>();
+        List<Answer> answers26 = new ArrayList<>();
         answers26.add(new Answer(getString(R.string.answer26_0), true));
         answers26.add(new Answer(getString(R.string.answer26_1), false));
         answers26.add(new Answer(getString(R.string.answer26_2), false));
         answers26.add(new Answer(getString(R.string.answer26_3), false));
         questions.add(new Question(getString(R.string.question26), answers26, false));
         // Q27
-        List<Answer> answers27 = new ArrayList<Answer>();
+        List<Answer> answers27 = new ArrayList<>();
         answers27.add(new Answer(getString(R.string.answer27_0), true));
         answers27.add(new Answer(getString(R.string.answer27_1), false));
         answers27.add(new Answer(getString(R.string.answer27_2), false));
         answers27.add(new Answer(getString(R.string.answer27_3), false));
         questions.add(new Question(getString(R.string.question27), answers27, false));
         // Q28
-        List<Answer> answers28 = new ArrayList<Answer>();
+        List<Answer> answers28 = new ArrayList<>();
         answers28.add(new Answer(getString(R.string.answer28_0), true));
         answers28.add(new Answer(getString(R.string.answer28_1), false));
         answers28.add(new Answer(getString(R.string.answer28_2), false));
         answers28.add(new Answer(getString(R.string.answer28_3), false));
         questions.add(new Question(getString(R.string.question28), answers28, false));
         // Q29
-        List<Answer> answers29 = new ArrayList<Answer>();
+        List<Answer> answers29 = new ArrayList<>();
         answers29.add(new Answer(getString(R.string.answer29_0), true));
         answers29.add(new Answer(getString(R.string.answer29_1), false));
         answers29.add(new Answer(getString(R.string.answer29_2), false));

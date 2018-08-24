@@ -1,3 +1,8 @@
+/*
+ * Created by Karolin Fornet.
+ * Copyright (c) 2017.  All rights reserved.
+ */
+
 package com.example.android.myquiz;
 
 import java.util.List;
@@ -8,9 +13,9 @@ public class Question {
     public boolean IsEditable;
 
     public Question(String text, List<Answer> answers, boolean isEditable) {
-        this.Text = text;
-        this.Answers = answers;
-        this.IsEditable = isEditable;
+        Text = text;
+        Answers = answers;
+        IsEditable = isEditable;
     }
 
     public int correctAnswerCount() {
@@ -38,7 +43,7 @@ public class Question {
         String toast = " ";
         for (Answer answer : Answers) {
             if (answer.IsCorrect) {
-                toast += toast == " " ? answer.Text : ", " + answer.Text;
+                toast += (toast.equals(" ") ? answer.Text : ", " + answer.Text);
             }
         }
         return toast;

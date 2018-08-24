@@ -1,3 +1,8 @@
+/*
+ * Created by Karolin Fornet.
+ * Copyright (c) 2017.  All rights reserved.
+ */
+
 package com.example.android.myquiz;
 
 import android.os.Bundle;
@@ -20,7 +25,7 @@ public class EditTextFragment extends Fragment {
     }
 
     public String getAnswer() {
-        EditText et = (EditText) view.findViewById(R.id.editText);
+        EditText et = view.findViewById(R.id.editText);
         et.setClickable(false);
         return et.getText().toString();
     }

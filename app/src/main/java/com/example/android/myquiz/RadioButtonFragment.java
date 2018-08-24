@@ -1,3 +1,8 @@
+/*
+ * Created by Karolin Fornet.
+ * Copyright (c) 2017.  All rights reserved.
+ */
+
 package com.example.android.myquiz;
 
 import android.os.Bundle;
@@ -19,45 +24,45 @@ public class RadioButtonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.answer_radiobutton_fragment, container, false);
-        this.displayAnswers(this.question);
+        this.displayAnswers(question);
         return view;
     }
 
     public void setQuestion(Question q) {
-        if (this.question == null || !this.question.Text.equalsIgnoreCase(q.Text)) {
-            this.question = q;
-            Collections.shuffle(this.question.Answers);
+        if (question == null || !question.Text.equalsIgnoreCase(q.Text)) {
+            question = q;
+            Collections.shuffle(question.Answers);
         }
     }
 
     private void displayAnswers(Question question) {
         if (question != null && view != null) {
-            RadioButton rb0 = (RadioButton) view.findViewById(R.id.radioButton0);
+            RadioButton rb0 = view.findViewById(R.id.radioButton0);
             rb0.setText(question.Answers.get(0).Text);
-            RadioButton rb1 = (RadioButton) view.findViewById(R.id.radioButton1);
+            RadioButton rb1 = view.findViewById(R.id.radioButton1);
             rb1.setText(question.Answers.get(1).Text);
-            RadioButton rb2 = (RadioButton) view.findViewById(R.id.radioButton2);
+            RadioButton rb2 = view.findViewById(R.id.radioButton2);
             rb2.setText(question.Answers.get(2).Text);
-            RadioButton rb3 = (RadioButton) view.findViewById(R.id.radioButton3);
+            RadioButton rb3 = view.findViewById(R.id.radioButton3);
             rb3.setText(question.Answers.get(3).Text);
         }
     }
 
     public String getSelectedAnswer() {
         String ret = "";
-        RadioButton rb0 = (RadioButton) view.findViewById(R.id.radioButton0);
+        RadioButton rb0 = view.findViewById(R.id.radioButton0);
         if (rb0.isChecked()) {
             ret = rb0.getText().toString();
         }
-        RadioButton rb1 = (RadioButton) view.findViewById(R.id.radioButton1);
+        RadioButton rb1 = view.findViewById(R.id.radioButton1);
         if (rb1.isChecked()) {
             ret = rb1.getText().toString();
         }
-        RadioButton rb2 = (RadioButton) view.findViewById(R.id.radioButton2);
+        RadioButton rb2 = view.findViewById(R.id.radioButton2);
         if (rb2.isChecked()) {
             ret = rb2.getText().toString();
         }
-        RadioButton rb3 = (RadioButton) view.findViewById(R.id.radioButton3);
+        RadioButton rb3 = view.findViewById(R.id.radioButton3);
         if (rb3.isChecked()) {
             ret = rb3.getText().toString();
         }
